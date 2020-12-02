@@ -1,6 +1,13 @@
 <script >
   import { Table, Spinner } from 'sveltestrap';
   import { onMount } from 'svelte';
+  import { create } from '../../store.js'
+
+
+
+$: if($create.element == 'client'){
+      console.log('roladfromclients')
+}
 
   let clients;
 

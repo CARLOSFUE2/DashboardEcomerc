@@ -14,8 +14,6 @@
      ordersPen =orders.filter( order => order.status == "Pendiente");
      ordersAct =orders.filter( order => order.status !== "Pendiente");
     
-
-      console.log(ordersPen);
       return ordersAct, ordersPen;
   });
 

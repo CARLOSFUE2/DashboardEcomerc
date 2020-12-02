@@ -1,9 +1,17 @@
 <script >
   import { Form, FormGroup, FormText, Input, Label, Col, Container, Row, Button, Modal, ModalHeader} from 'sveltestrap';
-  import { toast } from '../../store.js'
+  import { toast, create } from '../../store.js'
 
-
-
+function submit(e){
+  addBuyedTable();
+  console.log($create);
+}
+function addBuyedTable(){
+  $create={
+    element: 'buyed',
+    state:true,
+  }
+}
   function createInputs(e){
     event.preventDefault(); 
     cuantiti=document.getElementById('cuantiti').value;
@@ -30,7 +38,7 @@
 </script>
   <Modal {isOpen}>
     <ModalHeader {toggle}>Registro de venta personal</ModalHeader>
-<Form style="margin:10px; background: whitesmoke">
+<form on:submit|preventDefault={submit} style="margin:10px; background: whitesmoke">
     <Row>
     <Col xs="6">
       <FormGroup>
@@ -109,10 +117,10 @@
 {/each}
   <div class=" d-flex justify-content-center">
     <button type= "submit" class="btn btn-primary" style="margin:auto"> Registrar </button> 
-    <button  class="btn btn-danger"on:click={toggle} style="margin:auto">Cancel</button>
   </div>
 {/if}
-</Form>
+</form>
+   <button  class="btn btn-danger"on:click={toggle} style="margin:auto">Cancel</button>
 </Modal>
 
 

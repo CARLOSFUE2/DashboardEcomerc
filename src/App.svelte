@@ -13,8 +13,9 @@
      import Contacts from './routes/Contacts.svelte';
      import Toast from './components/Toast.svelte';
      import Home from './routes/Home.svelte';
-     import { store } from './store.js';
-     //let store = localStorage.getItem('User');
+     import MercadoLibre from './routes/MercadoLibre.svelte';
+     import { authUser } from './store.js';
+
 
 
   let isOpen = false;
@@ -27,7 +28,7 @@
         conditions: [
             async (detail) => {
                 // Make a network request, which are async operations
-                if ($store) {
+                if ($authUser) {
                   return true;
                 } else {
                   push('/login');
@@ -44,7 +45,7 @@
         conditions: [
             async (detail) => {
                 // Make a network request, which are async operations
-                if ($store) {
+                if ($authUser) {
                   return true;
                 } else {
                   push('/login');
@@ -60,7 +61,7 @@
         conditions: [
             async (detail) => {
                 // Make a network request, which are async operations
-                if ($store) {
+                if ($authUser) {
                   return true;
                 } else {
                   push('/login');
@@ -76,7 +77,7 @@
         conditions: [
             async (detail) => {
                 // Make a network request, which are async operations
-                if ($store) {
+                if ($authUser) {
                   return true;
                 } else {
                   push('/login');
@@ -92,7 +93,7 @@
         conditions: [
             async (detail) => {
                 // Make a network request, which are async operations
-                if ($store) {
+                if ($authUser) {
                   return true;
                 } else {
                   push('/login');
@@ -108,7 +109,7 @@
         conditions: [
             async (detail) => {
                 // Make a network request, which are async operations
-                if ($store) {
+                if ($authUser) {
                   return true;
                 } else {
                   push('/login');
@@ -124,7 +125,7 @@
         conditions: [
             async (detail) => {
                 // Make a network request, which are async operations
-                if ($store) {
+                if ($authUser) {
                   return true;
                 } else {
                   push('/login');
@@ -140,7 +141,7 @@
         conditions: [
             async (detail) => {
                 // Make a network request, which are async operations
-                if ($store) {
+                if ($authUser) {
                   return true;
                 } else {
                   push('/login');
@@ -156,7 +157,22 @@
         conditions: [
             async (detail) => {
                 // Make a network request, which are async operations
-                if ($store) {
+                if ($authUser) {
+                  return true;
+                } else {
+                  push('/login');
+                  return false;
+                }
+            }
+        ]
+    }),'/ml/:code?':wrap({
+        // Use a dynamically-loaded component for this
+        component: MercadoLibre,
+        // Adding one pre-condition that's an async function
+        conditions: [
+            async (detail) => {
+                // Make a network request, which are async operations
+                if ($authUser) {
                   return true;
                 } else {
                   push('/login');

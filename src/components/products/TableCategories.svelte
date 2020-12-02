@@ -1,6 +1,13 @@
 <script >
   import { Table, Spinner } from 'sveltestrap';
   import { onMount } from 'svelte';
+  import { create } from '../../store.js'
+
+
+
+$: if($create.element == 'category'){
+      console.log('roladfromcategory')
+}
 
   onMount(async ()=>{
     const res =await fetch(`http://localhost:1337/categories`)

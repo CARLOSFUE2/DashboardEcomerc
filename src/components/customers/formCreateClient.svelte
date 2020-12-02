@@ -1,6 +1,6 @@
 <script >
   import { Form, FormGroup, FormText, Input, Label, Col, Container, Row, Button,     Modal, ModalHeader} from 'sveltestrap';
-  import { toast } from '../../store.js'
+  import { toast, create } from '../../store.js'
 
 import axios from 'axios';
 let form ={};
@@ -10,11 +10,11 @@ async function submit (e){
   form.name = `${form.firstName} ${form.lastName}`;
   form.username = form.email;
   form.confirmed = true;
-  const resp = await axios.post("http://localhost:1337/auth/local/register", 
+ /* const resp = await axios.post("http://localhost:1337/auth/local/register", 
         {...form
       });
 
-        console.log(resp);
+        console.log(resp); */
         toggle();
         handleToast({
         title:"Cliente Registrado",
@@ -22,6 +22,8 @@ async function submit (e){
         color:'success'
         });
         form={};
+         addClientTable();
+         console.log($create);
          }
     } catch (error){
       console.log(error);
@@ -51,6 +53,12 @@ async function submit (e){
           }
     return oculto, value ;
     } 
+  function addClientTable(){
+  $create={
+    element: 'client',
+    state:true,
+  }
+}
   const handleToast = (data) => {
   $toast = {
     isOpen: true,

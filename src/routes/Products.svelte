@@ -1,6 +1,4 @@
 <script >
-//import { authUser } from '../store.js';
-
 import { Col, Container, Row } from 'sveltestrap';
 import Sidebard from '../components/products/Sidebard.svelte';
 import Table from '../components/products/Table.svelte';

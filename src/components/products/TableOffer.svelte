@@ -2,6 +2,11 @@
   import { Table, Spinner, Modal, ModalFooter,
     ModalHeader  } from 'sveltestrap';
   import { onMount } from 'svelte';
+  import { create } from '../../store.js'
+
+  $: if($create.element == 'offer'){
+      console.log('roladfromoffer')
+}
 
   onMount(async ()=>{
     const res =await fetch(`http://localhost:1337/offers`)

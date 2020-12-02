@@ -11,7 +11,6 @@
       	contact.lead.created_at= contact.lead.created_at.substr(0,10);
       	contact.created_at = contact.created_at.substr(0,10);
       })
-      console.log(contacts);
   });
   let id ='';
   let contacts =[];

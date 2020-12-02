@@ -1,6 +1,13 @@
 <script >
   import { Media, Card } from 'sveltestrap';
   import { onMount } from 'svelte';
+  import { create } from '../../store.js'
+
+
+
+$: if($create.element == 'product'){
+      console.log('roladformlistproducts')
+}
 
   let products =[];
  

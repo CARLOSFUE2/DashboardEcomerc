@@ -1,6 +1,6 @@
 <script >
 import { Form, FormGroup, FormText, Input, Label, Col, Container, Row, Button, Modal, ModalFooter, ModalHeader} from 'sveltestrap';
-import { toast } from '../../store.js'
+import { toast, create } from '../../store.js'
 import { onMount } from 'svelte';
 import {push, pop, replace} from 'svelte-spa-router';
 
@@ -33,19 +33,20 @@ let category;
     
 
     	console.log(form, formData.values());
-    	const resp = await fetch("http://localhost:1337/products", {
+    /*	const resp = await fetch("http://localhost:1337/products", {
     		method: "POST",
     		body:formData
     	});
  
-        statusCode = resp.status;
+        statusCode = resp.status; */
         toggle();
         handleToast({
         title:"Producto creado",
         message: "El producto fue registrado satisfactoriamente aparecera en la tabla",
         color:'success'
         });
-        //push('/products'); 
+         addProductTable();
+         console.log($create);
     }} catch (error){
     console.log(error);
      toggle();
@@ -55,6 +56,12 @@ let category;
         color:'danger'
         });
 
+  }
+}
+function addProductTable(){
+  $create={
+    element: 'product',
+    state:true,
   }
 }
 

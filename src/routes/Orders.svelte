@@ -2,6 +2,7 @@
 import Sidebard from '../components/orders/Sidebard.svelte';
 import Table from '../components/orders/Table.svelte';
 import Form from '../components/orders/formCreateBuyed.svelte';
+import TablePersonal from '../components/orders/tableBuyedPersonal.svelte';
 import ChartOrders from '../components/charts/chartBuyed.svelte';
 
 let isOpen = false;
@@ -20,6 +21,7 @@ const handleIsOpen = (event) => {
 <ChartOrders/>
 <Form {isOpen}/>
 <Table/>
+<TablePersonal/>
 
 
 </main>

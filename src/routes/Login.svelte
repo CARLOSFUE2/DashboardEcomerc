@@ -1,21 +1,20 @@
 <script >
   import axios from "axios";
   import {push, pop, replace} from 'svelte-spa-router'
-  import { store, toast } from '../store.js'
- // store.useLocalStorage(); 
-let form ={};
+  import { authUser, toast } from '../store.js'
+  let form ={};
 
  
 async function submit(e){
 
  try{
-  const { data } = await axios.post('http://localhost:1337/auth/local', {
+  const { data } = await axios.post('https://api.wynwoodstore.net/auth/local', {
     identifier: form.identifier,
     password: form.password,
   });
 
 if (data && data.user.role.name == "administrator") {
-  $store = {...data};
+  $authUser = {...data};
   push('/')
 } else{
    handleToast({

@@ -1,6 +1,6 @@
 <script >
 import { Form, FormGroup, FormText, Input, Label, Col, Container, Row, Button, Modal,ModalFooter,ModalHeader} from 'sveltestrap';
-import {  toast } from '../../store.js'
+import { toast, create } from '../../store.js'
 import { onMount } from 'svelte';
 import axios from 'axios';
 
@@ -34,14 +34,16 @@ export let isOpenOffer;
       product = product.id;
      form= {...form , product};
      console.log(form); 
-    	const resp = await axios.post("http://localhost:1337/offers", form);
-        console.log(resp); 
+    	/* const resp = await axios.post("http://localhost:1337/offers", form);
+        console.log(resp); */
          toggle();
         handleToast({
         title:"Oferta creada",
         message: "La Oferta fue registrada satisfactoriamente aparecera en la tabla",
         color:'success'
         }) 
+        addOfferTable();
+         console.log($create);
       }} catch(error){
    console.log(error);
     toggle();
@@ -51,6 +53,12 @@ export let isOpenOffer;
         color:'danger'
         })
  }
+}
+function addOfferTable(){
+  $create={
+    element: 'offer',
+    state:true,
+  }
 }
  const handleToast = (data) => {
   $toast = {

@@ -2,6 +2,14 @@
   import { Table, Spinner } from 'sveltestrap';
   import { onMount } from 'svelte';
   import { createEventDispatcher } from 'svelte';
+  import { create } from '../../store.js'
+
+
+
+$: if($create.element == 'product'){
+      console.log('roladfromproducts')
+}
+
 
   const dispatch = createEventDispatcher();
   function handleIsOpen(form){

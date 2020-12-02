@@ -2,6 +2,13 @@
   import { Table, Button, Spinner, Modal, ModalFooter,
     ModalHeader } from 'sveltestrap';
   import { onMount } from 'svelte';
+   import { create } from '../../store.js'
+
+
+
+$: if($create.element == 'buyed'){
+      console.log('roladfrombuyed')
+}
  
  let clients =[];
   let orders;
@@ -63,7 +70,7 @@ function toggle(){isOpen = !isOpen;}
 </div>
 </div>
 </Modal>
-<h1>Tabla de Ordenes</h1>
+<h1>Tabla de Ventas Personales</h1>
 <div class="table-responsive">
   <table class="table table-striped table-sm table-hover">  <thead>
     <tr>

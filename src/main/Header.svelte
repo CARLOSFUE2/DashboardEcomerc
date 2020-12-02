@@ -13,12 +13,11 @@
     DropdownItem
   } from 'sveltestrap';
     import {push, pop, replace} from 'svelte-spa-router'
-   import { store } from '../store.js';
-  //  let store = localStorage.getItem('User');
+   import { authUser } from '../store.js';
   
   let isOpen = false;
   function closeSession(event){
-    $store=null;
+    $authUser=null;
     push('/login');
   }
 
@@ -27,7 +26,7 @@
   }
 </script>
 
-{#if $store}
+{#if $authUser}
 <Navbar color="dark" dark expand="md">
   <NavbarBrand href="#/"><img src="https://api.wynwoodstore.net/uploads/small_logo_Blanco_3a8678b995.png" alt="" width="120" height="60"></NavbarBrand>
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
@@ -48,8 +47,11 @@
       <NavItem>
         <NavLink href="#/contacts">Contactos</NavLink>
       </NavItem>
+      <NavItem>
+        <NavLink href="#/ml/qlq">Mercado Libre</NavLink>
+      </NavItem>
       <UncontrolledDropdown nav inNavbar>
-        <DropdownToggle nav caret>{$store.user.name}</DropdownToggle>
+        <DropdownToggle nav caret>{$authUser.user.name}</DropdownToggle>
         <DropdownMenu right>
           <DropdownItem on:click={closeSession}>Cerrar Sesion</DropdownItem>
         </DropdownMenu>
