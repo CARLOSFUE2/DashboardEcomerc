@@ -1,0 +1,14 @@
+a.media-left {
+	width: 30%;
+}
+
+.grafica {
+	background: white !important;
+	border-radius: 1rem !important; 
+
+}
+ .click{
+	cursor: pointer;
+}
+//de esta manera todos las etiquetas por ejemplo la <a> tendran ese estilo particular// 
+ a {cursor:pointer};
