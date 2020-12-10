@@ -89,7 +89,7 @@ const handleToast = (data) => {
 </Col>
   </Row>
   <Row>
-    <Col xs="6">
+  <Col xs="12">
   <FormGroup>
     <Label for="exampleText">Email</Label>
     <Input
@@ -99,26 +99,14 @@ const handleToast = (data) => {
       id=""
       placeholder="Email del Cliente" />
   </FormGroup>
-    </Col>
-    <Col xs="6">
-    <FormGroup>
-    <Label for="exampleText">Contraseña</Label>
-    <Input
-      type="password"
-      name="password"
-      bind:value={form.password}
-      id=""
-      placeholder="Contraseña del Cliente" />
-  </FormGroup>    
 </Col>
   </Row>
   
   <div class=" d-flex justify-content-center">
  <button type="submit" class="btn btn-primary" style="margin:auto">Modificar</button>
-<Button color="danger" on:click={toggle} style="margin:auto">Cancelar</Button>
-
 </div>
 </form>
+<Button color="danger" on:click={toggle} style="margin:auto">Cancelar</Button>
 </Modal>
 
 

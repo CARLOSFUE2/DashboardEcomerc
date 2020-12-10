@@ -14,21 +14,27 @@ let codeAuth='';
 let token =''
  onMount(async ()=>{
 	let arrayCode= $querystring.split('=');
- 	codeAuth = arrayCode[1];
+	 codeAuth = arrayCode[1];
+	 console.log(codeAuth);
  	const res = await axios({
 	method: 'post',
 	url:'https://api.mercadolibre.com/oauth/token',
 	data: qs.stringify({
 	grant_type: 'authorization_code',
-	client_id:'4711552874376972',
-	client_secret: 'PrkeeEUTqOGDARXaTO03YWSw8JAYF7YD',
+	client_id:'3903275226360638',
+	client_secret: 'vCcfN4Vpbqbz41Ry0JsPOo5gQcOL7W9S',
 	code: codeAuth,
 	redirect_uri: 'https://wynwoodstore.net/'
 	}),
 	headers: {
 	'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
 	}});
-	token= res.data.access_token;
+	console.log(res); 
+	token= 'APP_USR-3903275226360638-121019-1237583fe416c256a3311381306035b5-684358396' // res.data.access_token;
+	console.log(token);
+	const integration = await axios.put('http://localhost:1337/integration',{token});
+	console.log(integration); 
+	
 
  } )
   
