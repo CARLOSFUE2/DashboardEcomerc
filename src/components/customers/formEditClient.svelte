@@ -1,9 +1,10 @@
 <script >
-  import { Form, FormGroup, FormText, Input, Label, Col, Container, Row, Button,     Modal, ModalHeader} from 'sveltestrap';
-  import {  toast } from '../../store.js'
+  import { FormGroup, Input, Label, Col, Row, Button, Modal, ModalHeader} from 'sveltestrap';
+  import {  toast, elementEdit } from '../../store.js'
 
-  import axios from 'axios';
+ import axios from 'axios';
 async function submit (e){
+  try{
  if(form){
   form.username = form.email;
   form.confirmed = true;
@@ -13,33 +14,21 @@ async function submit (e){
 
         console.log(resp);
         toggle();
-        form={};
         handleToast({
         title:"Actualizacion de Datos Exitosa",
         message: "La actualizacion de datos fue un exito, recuerda notificar al cliente los cambios",
         color:'success'
         })
+         change({
+          name:'client',
+          element: form
+        })
+
+ }}catch (err){
+   throw err;
  }
 }
-
-  function createInputs(e){
-    event.preventDefault(); 
-    cuantiti=document.getElementById('cuantiti').value;
-    console.log(cuantiti);
-    for (var i = 0; i < cuantiti; i++) {
-        console.log(i);
-      apoyo.push(i);
-          }    
-    return apoyo;
-    }
-    function handleInput(e){
-    value = e.target.value;
-     if(value >= 1){
-      oculto = false;
-          }
-    return oculto, value ;
-    } 
-
+  
 const handleToast = (data) => {
   $toast = {
     isOpen: true,
@@ -48,12 +37,13 @@ const handleToast = (data) => {
     color: data.color
   }
 }
+function change (value){
+  $elementEdit = {
+    nameElement:value.name,
+    elementEdit: value.element
+  }
+}
 
-  
-  let cuantiti ='';
-  let apoyo =[];
-  let oculto= true;
-  let value ='';
   function toggle(){isOpen = !isOpen;}
   export let Open; 
   export let form;

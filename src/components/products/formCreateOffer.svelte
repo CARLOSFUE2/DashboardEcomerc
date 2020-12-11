@@ -1,5 +1,5 @@
 <script >
-import { Form, FormGroup, FormText, Input, Label, Col, Container, Row, Button, Modal,ModalFooter,ModalHeader} from 'sveltestrap';
+import {  Button, Modal, ModalHeader} from 'sveltestrap';
 import { toast, create } from '../../store.js'
 import { onMount } from 'svelte';
 import axios from 'axios';
@@ -34,8 +34,7 @@ export let isOpenOffer;
       product = product.id;
      form= {...form , product};
      console.log(form); 
-    	/* const resp = await axios.post("http://localhost:1337/offers", form);
-        console.log(resp); */
+    	 const resp = await axios.post("http://localhost:1337/offers", form);
          toggle();
         handleToast({
         title:"Oferta creada",
@@ -56,10 +55,10 @@ export let isOpenOffer;
 }
 function addOfferTable(){
   $create={
-    element: 'offer',
-    state:true,
+    nameElement: 'offert',
   }
 }
+
  const handleToast = (data) => {
   $toast = {
     isOpen: true,

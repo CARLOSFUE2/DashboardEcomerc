@@ -2,7 +2,6 @@
 import { Col, Container, Row } from 'sveltestrap';
 import Sidebard from '../components/products/Sidebard.svelte';
 import Table from '../components/products/Table.svelte';
-import ListProducts from '../components/products/ListProducts.svelte';
 import FormProduct from '../components/products/formCreateProduct.svelte';
 import FormCategory from '../components/products/formCreateCategory.svelte';
 import FormOffer from '../components/products/formCreateOffer.svelte';

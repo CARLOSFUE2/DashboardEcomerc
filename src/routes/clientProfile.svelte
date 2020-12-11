@@ -1,13 +1,17 @@
 <script>
-  import {  Card, CardBody, Button, ModalBody, Modal, ModalFooter, ModalHeader } from 'sveltestrap';
-  import { toast } from '../store.js';
+  import { Button, ModalBody, Modal, ModalFooter, ModalHeader } from 'sveltestrap';
+  import { toast , elementEdit} from '../store.js';
   import Sidebard from '../components/customers/Sidebard.svelte';
   import Table from '../components/customers/TableBuyed.svelte';
   import Form from '../components/customers/formCreateClient.svelte';
   import FormEdit from '../components/customers/formEditClient.svelte';
   import { onMount } from 'svelte';
-  import {push, pop, replace} from 'svelte-spa-router';
+  import {push} from 'svelte-spa-router';
   import axios from 'axios';
+
+  $: $elementEdit.nameElement == 'client'? client = $elementEdit.elementEdit : console.log('probando este beta') ; 
+
+
   export let params;
   let client={};
   let form = {};

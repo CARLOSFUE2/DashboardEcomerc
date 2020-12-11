@@ -4,10 +4,18 @@
   import { onMount } from 'svelte';
   import { create } from '../../store.js'
 
-  $: if($create.element == 'offer'){
-      console.log('roladfromoffer')
-}
 
+ $: $create.nameElement == 'offert'? reloadProduct() : console.log('probando este beta') ; 
+
+async function reloadProduct() {
+  const res =await fetch(`http://localhost:1337/offers`)
+      offers= await res.json();
+      offers.forEach(offer =>{
+      offer.created_at = offer.created_at.substr(0,10); 
+      })     
+       }
+
+      
   onMount(async ()=>{
     const res =await fetch(`http://localhost:1337/offers`)
       offers= await res.json();

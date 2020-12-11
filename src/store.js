@@ -18,6 +18,12 @@ authUser.subscribe((value) => {
 }); 
 
 export const create = writable({
-  element: '', 
-  state:false
+  nameElement: '', 
+  element:{},
 });
+
+export const elementEdit= writable({
+  nameElement: '',
+  element:{}
+});
+

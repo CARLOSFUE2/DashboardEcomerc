@@ -1,15 +1,20 @@
 <script >
-  import { Table, Spinner } from 'sveltestrap';
   import { onMount } from 'svelte';
   import { createEventDispatcher } from 'svelte';
   import { create } from '../../store.js'
 
 
+$: $create.nameElement == 'product'? reloadProduct() : console.log('probando este beta') ; 
 
-$: if($create.element == 'product'){
-      console.log('roladfromproducts')
+async function reloadProduct() {
+  const res =await fetch(`http://localhost:1337/products`)
+      products= await res.json(); 
+        if(category !== undefined) {
+        let res = products.filter(product => product.categories[0].name === category.name);
+        products= res;
+        return products;      
+       }
 }
-
 
   const dispatch = createEventDispatcher();
   function handleIsOpen(form){

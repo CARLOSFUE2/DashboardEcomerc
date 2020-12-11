@@ -1,5 +1,5 @@
 <script >
-import { Form, FormGroup, FormText, Input, Label, Col, Container, Row, Button, Modal,ModalFooter,ModalHeader} from 'sveltestrap';
+import { Button, Modal, ModalHeader} from 'sveltestrap';
 import { toast, create } from '../../store.js'
 
 export let isOpenCategory; 
@@ -10,11 +10,10 @@ export let isOpenCategory;
       	const formData = new FormData();
       	formData.append('data', JSON.stringify(form));
     	console.log(form, formData.values());
-    	/*const resp = await fetch("http://localhost:1337/categories", {
+    	const resp = await fetch("http://localhost:1337/categories", {
     		method: "POST",
     		body:formData
     	});
-        console.log(resp); */
          toggle();
         handleToast({
         title:"Categoria creado",
@@ -22,7 +21,6 @@ export let isOpenCategory;
         color:'success'
         })
          addCategoryTable();
-         console.log($create);
  }} catch(error){
    console.log(error);
     toggle();
@@ -35,8 +33,7 @@ export let isOpenCategory;
 }
 function addCategoryTable(){
   $create={
-    element: 'category',
-    state:true,
+    nameElement: 'category',
   }
 }
  const handleToast = (data) => {

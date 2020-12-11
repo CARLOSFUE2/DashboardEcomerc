@@ -1,15 +1,16 @@
 <script >
-import { toast } from '../store.js';
+import { toast , elementEdit } from '../store.js';
 import Sidebard from '../components/products/Sidebard.svelte';
-import {  Card, CardBody, Button, ModalBody, Modal, ModalFooter, ModalHeader } from 'sveltestrap';
+import {  Button, ModalBody, Modal, ModalFooter, ModalHeader } from 'sveltestrap';
 import Form from '../components/products/formEditProduct.svelte';
 import { onMount } from 'svelte';
-import {push, pop, replace} from 'svelte-spa-router';
+import { push } from 'svelte-spa-router';
 import axios from 'axios';
 
+$: $elementEdit.nameElement == 'product'? product = $elementEdit.elementEdit : console.log('probando este beta') ; 
 
-	export let params
-	let product ={};
+	export let params;
+	export let product ={};
 	let src = '';
   let categories=[];
   let slug= params.slug;
@@ -38,7 +39,7 @@ import axios from 'axios';
         title:"Producto fue eliminado",
         message: "El producto fue eliminado satisfactoriamente",
         color:'success'
-        }) 
+        }); 
           push('/products'); 
 
     }catch (error){
@@ -51,10 +52,10 @@ import axios from 'axios';
     } 
   }
 let isOpenProducts =false;
- let isOpen =false;
+let isOpen =false;
 function toggle(){isOpen = !isOpen;}
 </script>
-<Form {slug} {isOpenProducts}/>
+<Form {product} {isOpenProducts} {categories} />
 
 <Modal isOpen={isOpen} {toggle}>
     <ModalHeader {toggle}>Eliminar producto</ModalHeader>

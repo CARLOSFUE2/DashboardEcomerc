@@ -1,8 +1,8 @@
 <script >
-import { Form, FormGroup, FormText, Input, Label, Col, Container, Row, Button, Modal, ModalFooter, ModalHeader} from 'sveltestrap';
+import {  Button, Modal, ModalHeader} from 'sveltestrap';
 import { toast, create } from '../../store.js'
 import { onMount } from 'svelte';
-import {push, pop, replace} from 'svelte-spa-router';
+
 
   onMount(async ()=>{
     const res =await fetch(`http://localhost:1337/categories`)
@@ -13,7 +13,6 @@ let categoris =[];
 let categories =[];
 let	files;
 let form={} ;
-let statusCode = "";
 let category;
 
 
@@ -30,15 +29,11 @@ let category;
 
     	formData.append("files.images", files[0]);
       	}
-    
-
-    	console.log(form, formData.values());
-    /*	const resp = await fetch("http://localhost:1337/products", {
+    	const resp = await fetch("http://localhost:1337/products", {
     		method: "POST",
     		body:formData
     	});
  
-        statusCode = resp.status; */
         toggle();
         handleToast({
         title:"Producto creado",
@@ -46,7 +41,6 @@ let category;
         color:'success'
         });
          addProductTable();
-         console.log($create);
     }} catch (error){
     console.log(error);
      toggle();
@@ -60,8 +54,7 @@ let category;
 }
 function addProductTable(){
   $create={
-    element: 'product',
-    state:true,
+    nameElement: 'product',
   }
 }
 
@@ -73,6 +66,7 @@ const handleToast = (data) => {
     color: data.color
   }
 }
+
 function toggle(){isOpen = !isOpen;}
 export let isOpenProducts; 
 

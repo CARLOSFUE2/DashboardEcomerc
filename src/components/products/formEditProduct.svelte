@@ -1,56 +1,51 @@
 <script >
-import { Form, FormGroup, FormText, Input, Label, Col, Container, Row, Button, Modal, ModalFooter, ModalHeader} from 'sveltestrap';
-import { toast } from '../../store.js'
+import {  Modal,  ModalHeader} from 'sveltestrap';
+import { toast, elementEdit } from '../../store.js'
 import { onMount } from 'svelte';
+import axios from 'axios';
 
-  onMount(async ()=>{
-    const res =await fetch(`http://localhost:1337/categories`)
-      categories= await res.json();
-    const response =await fetch(`http://localhost:1337/products/${slug}`)
-      form= await response.json();
-
-  });
-export let slug;
-  let categories =[];
-
+onMount(async ()=>{
+  const res  =await axios.get('http://localhost:1337/categories');
+  categories = res.data;
+});
+export let product;
+let categories;
 let	files;
-
-let form={} ;
 let statusCode = "";
 
 
   async function submit(e) {
     try{
-  	if (form) {
+  	if (product) {
       	const formData = new FormData();
-      	formData.append('data', JSON.stringify(form));
+      	formData.append('data', JSON.stringify(product));
     	
-      	if (files.length > 0) {
+      	if (files !== undefined) {
 
     	formData.append("files.images", files[0]);
       	}
-    
-
-    	console.log(form, formData.values());
-    	const resp = await fetch("http://localhost:1337/products", {
-    		method: "POST",
+      	const resp = await fetch(`http://localhost:1337/products/${product.id}`, {
+    		method: "PUT",
     		body:formData
-    	});
- 
+      }); 
         statusCode = resp.status;
         toggle();
         handleToast({
-        title:"Producto creado",
-        message: "El producto fue registrado satisfactoriamente aparecera en la tabla",
+        title:"Producto Modificado",
+        message: "El producto fue modificado satisfactoriamente aparecera en la tabla",
         color:'success'
         }) 
+        change({
+          name:'product',
+          element: product
+        })
     }
   }catch (error){
     console.log(error);
      toggle();
       handleToast({
         title:"Error",
-        message: "El producto no fue registrado, por favor revise los datos y repita la operacion",
+        message: "El producto no fue modififcado, por favor revise los datos y repita la operacion",
         color:'danger'
         })
 
@@ -65,6 +60,13 @@ const handleToast = (data) => {
     color: data.color
   }
 }
+function change (value){
+  $elementEdit = {
+    nameElement:value.name,
+    elementEdit: value.element
+  }
+}
+
 function toggle(){isOpenProducts = !isOpenProducts}
 export let isOpenProducts; 
 
@@ -79,17 +81,17 @@ $: isOpen = isOpenProducts;
  <div class="form-row">
   <div class="form-group col-md-6">
   	<label for="title">titulo</label>
-  	<input type="text" bind:value={form.title} name="title" class="form-control"  placeholder="Nombre del Producto">
+  	<input type="text" bind:value={product.title} name="title" class="form-control"  placeholder="Nombre del Producto">
   </div>
   <div class="form-group col-md-6">
   	<label for="price">Precio</label>
-     <input type="number" min="0.00" step="0.01" bind:value={form.price} class="form-control"  placeholder="Precio del Producto">
+     <input type="number" min="0.00" step="0.01" bind:value={product.price} class="form-control"  placeholder="Precio del Producto">
    </div>
  </div>
  <div class="form-row">
     <div class="col-md-6">
      <label for="categories">categorias</label>
-     <select bind:value={form.categories[0].name} class="form-group  col-md-11" >
+     <select bind:value={product.categories[0].name} class="form-group  col-md-11" >
         {#each categories as category}      
           <option>{category.name}</option>
         {/each}
@@ -97,7 +99,7 @@ $: isOpen = isOpenProducts;
     </div>
     <div class="form-group col-md-6" >
      <label for="inputSlug">Identificador de Url</label>
-      <input type="text" bind:value={form.slug} class="form-control"  placeholder="Identificador de Url">
+      <input type="text" bind:value={product.slug} class="form-control"  placeholder="Identificador de Url">
     </div>
   </div>
   <div class="form-row">
@@ -108,16 +110,16 @@ $: isOpen = isOpenProducts;
     </div>
     <div class="form-group col-md-6">
      <label for="stock">Stock</label>
-     <input type="number" min="1"  bind:value={form.stock} class="form-control"  placeholder="Stock Global">
+     <input type="number" min="1"  bind:value={product.stock} class="form-control"  placeholder="Stock Global">
      </div>
   </div> 
    <div class="form-group"> 
     <label for="exampleFormControlTextarea1">Resume del producto</label>
-    <textarea class="form-control"  rows="1"  bind:value={form.resume}></textarea>
+    <textarea class="form-control"  rows="1"  bind:value={product.resume}></textarea>
    </div>
    <div class="form-group">
     <label for="exampleFormControlTextarea">Descripcion del producto</label>
-    <textarea class="form-control" rows="2"  bind:value={form.description}></textarea>
+    <textarea class="form-control" rows="2"  bind:value={product.description}></textarea>
     </div>
       <div class=" d-flex justify-content-center">
     <button type="submit" class="btn btn-primary" style="margin:auto">Modificar</button>

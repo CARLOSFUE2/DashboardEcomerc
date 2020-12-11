@@ -3,11 +3,15 @@
   import { onMount } from 'svelte';
   import { create } from '../../store.js'
 
+$: $create.nameElement == 'category'? reloadProduct() : console.log('probando este beta') ; 
 
-
-$: if($create.element == 'category'){
-      console.log('roladfromcategory')
+async function reloadProduct() {
+  const res =await fetch(`http://localhost:1337/categories`)
+      categories= await res.json();
+      console.log(categories);
+      return categories;
 }
+
 
   onMount(async ()=>{
     const res =await fetch(`http://localhost:1337/categories`)
