@@ -1,11 +1,12 @@
 <script >
-  import { Table, Button, Spinner, Modal, ModalFooter,
-    ModalHeader } from 'sveltestrap';
+  import { Modal, ModalHeader } from 'sveltestrap';
   import { onMount } from 'svelte';
   import axios from 'axios';
+  import { toast } from '../../store.js'
+
  
  let clients =[];
-  let orders;
+  let orders=[];
   let order;
   let id;
   let idFacture;
@@ -16,7 +17,6 @@
   onMount(async ()=>{
     const res =await fetch('http://localhost:1337/users')
       clients= await res.json();
-      console.log(clients);
       let clientOrders = [];
       let clientName;
       let clientId;
@@ -30,7 +30,6 @@
         }
       })
       orders = clientOrders;
-      return orders;
   });
 function mostrar(Id){
     id = Id;
@@ -40,15 +39,55 @@ function mostrar(Id){
     }})
     toggle()
   }
+  async function modifiOrder(){
+    const res =await fetch('http://localhost:1337/users')
+      clients= await res.json();
+      let clientOrders = [];
+      let clientName;
+      let clientId;
+      clients.forEach(client =>  {
+        if (client.buyedProducts) {
+          clientName= client.name;
+          clientId= client.id;
+          client.buyedProducts.forEach(order => {
+            clientOrders.push({...order,clientName,clientId});
+          })
+        }
+      })
+      orders = clientOrders;
+  }
+
+ const handleToast = (data) => {
+  $toast = {
+    isOpen: true,
+    title: data.title,
+    message: data.message,
+    color: data.color
+  }
+}
   async function modifyStatus(idclient,idfacture, change){
-    idFacture=idfacture;
+   try{ idFacture=idfacture;
     idClient=idclient;
     status=change;
     let body = {idFacture, status}
-    res = await axios.put(`http://localhost:1337/users/${idClient}`,
+    const res = await axios.put(`http://localhost:1337/users/${idClient}`,
    {... body });
-   console.log(res);
-
+   toggle();
+   handleToast({
+   title:"Estatus Modificado",
+   message: "el estatus fue modificado satisfactoriamente aparecera en la tabla",
+   color:'success'
+        })
+   modifiOrder();
+    } catch (error){
+      handleToast({
+      title:"Error",
+      message: "por favor intente de nuevo",
+      color:'danger'
+        })
+      throw error;
+     
+    }
   }
  let isOpen =false;
 function toggle(){isOpen = !isOpen;}
@@ -99,20 +138,21 @@ function toggle(){isOpen = !isOpen;}
       <td><a href="#/customers/{item.clientId}">{item.clientName}</a></td>
       <td>{item.date}</td>
       <td>{item.totalPrice}</td>
-      {#if item.status == "Pendiente"}
+      {#if item.status == "Pendiente" || item.status == "No_Entregado"}
       <td style="color:red"><a on:click={mostrar(item.id)}>{item.status}</a></td>
+      {:else if item.status == "Devuelto"}
+
+      <td class="text-warning"><a on:click={mostrar(item.id)}>{item.status}</a></td>
+
       {:else}
-      <td style="color:green">{item.status}</td>
+      <td style="color:green"><a on:click={mostrar(item.id)}>{item.status}</a></td>
       {/if}
       
       <td>{item.cart.length}</td>
             
     </tr>
     {/each} 
-    {:else}
-    <div class=" container-fluid d-flex justify-content-center">
-    <Spinner light />
-    </div>
+    
     {/if}
    
     

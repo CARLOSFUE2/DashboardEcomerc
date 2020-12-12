@@ -2,11 +2,16 @@
   import Chart from 'svelte-frappe-charts';
   import { onMount } from 'svelte';
 
+  
   let clients =[];
   let orders;
   let timesCreates=[];
+  let dateActuallity;
+  var today= new Date();
+  let months =['Enero', 'Febrero', 'Marzo', 'Abril' ,' Mayo', 'Junio' , 'Julio', 'Agosto', 'Septiembre', 'Octubre','Noviembre', 'Diciembre' ]
 
   onMount(async ()=>{
+    dateActuallity = today.getMonth() +1;
     const res =await fetch(`https://api.wynwoodstore.net/users`)
       clients= await res.json();
       let clientOrders = [];
@@ -53,6 +58,6 @@
 
  
 </script>
-<h1>Grafica de Registro de Ventas por semana (Noviembre)</h1>
+<h1>Grafica de Registro de Ventas por semana ({months[today.getMonth()]})</h1>
 <Chart  class="grafica" data={data} type="line" bind:this={chartRef} />
 

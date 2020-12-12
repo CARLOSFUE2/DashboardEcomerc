@@ -5,8 +5,13 @@
   let contacts;
   let timesCreates=[];
   let frecuentForDay=[];
+  let dateActuallity;
+  var today= new Date();
+  let months =['Enero', 'Febrero', 'Marzo', 'Abril' ,' Mayo', 'Junio' , 'Julio', 'Agosto', 'Septiembre', 'Octubre','Noviembre', 'Diciembre' ]
+
 
   onMount(async ()=>{
+    dateActuallity = today.getMonth() +1;
     const res =await fetch(`https://api.wynwoodstore.net/contacts`)
       contacts= await res.json(); 
       contacts.forEach(contact =>{
@@ -40,6 +45,6 @@
 
  
 </script>
-<h1>Grafica de Registro de Contactos por semana (Noviembre)</h1>
+<h1>Grafica de Registro de Contactos por semana ({months[today.getMonth()]})</h1>
 <Chart data={data} type="line" bind:this={chartRef} />
 

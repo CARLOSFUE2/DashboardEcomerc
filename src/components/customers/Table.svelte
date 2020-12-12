@@ -4,9 +4,12 @@
   import { create } from '../../store.js'
 
 
+ $: $create.nameElement == 'client'? reloadProduct() : console.log('probando este beta') ; 
 
-$: if($create.element == 'client'){
-      console.log('roladfromclients')
+ async function reloadProduct() {
+  const res =await fetch(`http://localhost:1337/users`)
+      clients= await res.json(); 
+      return clients;
 }
 
   let clients;

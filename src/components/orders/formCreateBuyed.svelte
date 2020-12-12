@@ -1,23 +1,57 @@
 <script >
-  import { Form, FormGroup, FormText, Input, Label, Col, Container, Row, Button, Modal, ModalHeader} from 'sveltestrap';
-  import { toast, create } from '../../store.js'
+  import {  FormGroup,  Input, Label, Col,  Row,  Modal, ModalHeader} from 'sveltestrap';
+  import { toast, create } from '../../store.js';
+  import axios from 'axios';
 
-function submit(e){
+async function submit(e){
+  try{let products =[];
+  let body ={};
+  let total =0;
+  for (var a=0; a < nameProduct.length ; a++ ){
+    products.push({
+      'name' : nameProduct[a],
+      'price' : priceProduct[a],
+      'cuantiti' : cuatitiProduct[a]
+    });
+    total = total + (cuatitiProduct[a]*priceProduct[a]);
+    }
+  body = {... form, products, total}
+  const res = await axios.post('http://localhost:1337/ventas', body);
+  toggle();
+  handleToast({
+        title:"Venta Personal Registrada",
+        message: "La venta fue registrada satisfactoriamente aparecera en la tabla",
+        color:'success'
+        })
   addBuyedTable();
-  console.log($create);
+} catch(error){
+  toggle();
+   handleToast({
+     title:"Error",
+     message: "La venta no fue registrada, por favor revise los datos y repita la operacion",
+     color:'danger'
+     })
+     throw error;
+}
 }
 function addBuyedTable(){
   $create={
-    element: 'buyed',
-    state:true,
+    nameElement: 'buyed',
+  }
+}
+
+ const handleToast = (data) => {
+  $toast = {
+    isOpen: true,
+    title: data.title,
+    message: data.message,
+    color: data.color
   }
 }
   function createInputs(e){
     event.preventDefault(); 
     cuantiti=document.getElementById('cuantiti').value;
-    console.log(cuantiti);
     for (var i = 0; i < cuantiti; i++) {
-        console.log(i);
       apoyo.push(i);
           }    
     return apoyo;
@@ -29,6 +63,10 @@ function addBuyedTable(){
           }
     return oculto, value ;
     } 
+  let form ={};
+  let nameProduct=[];
+  let priceProduct=[];
+  let cuatitiProduct=[];
   let cuantiti ='';
   let apoyo =[];
   let oculto= true;
@@ -40,23 +78,36 @@ function addBuyedTable(){
     <ModalHeader {toggle}>Registro de venta personal</ModalHeader>
 <form on:submit|preventDefault={submit} style="margin:10px; background: whitesmoke">
     <Row>
-    <Col xs="6">
+    <Col xs="4">
       <FormGroup>
     <Label for="exampleText">Cliente</Label>
     <Input
       type="text"
       name="name"
       id="exampleText"
+      bind:value={form.clientName}
       placeholder="Nombre del Cliente" />
   </FormGroup>
     </Col>
-    <Col xs="6">
+    <Col xs="4">
+      <FormGroup>
+    <Label for="exampleText"># Factura</Label>
+    <Input
+      type="number"
+      name="facture"
+      id="facture"
+      bind:value={form.numberFacture}
+      placeholder="Numero de factura" />
+  </FormGroup>
+    </Col>
+    <Col xs="4">
     <FormGroup>
     <Label for="exampleDate">Fecha</Label>
     <Input
       type="date"
       name="date"
       id="exampleDate"
+      bind:value={form.date}
       placeholder="Fecha de la Venta" />
   </FormGroup>
     </Col>
@@ -81,9 +132,9 @@ function addBuyedTable(){
 {/if}
 
 {:else}
-{#each apoyo as a}
+{#each apoyo as i}
  <Row>
-  <p hidden="true">{a}</p>
+  <p hidden="true">{i}</p>
     <Col>
     <FormGroup>
     <Label for="exampleText">Producto</Label>
@@ -91,6 +142,7 @@ function addBuyedTable(){
       type="text"
       name="name"
       id="exampleProducto"
+      bind:value={nameProduct[i]}
       placeholder="Nombre del Producto" />
   </FormGroup>
 </Col>
@@ -101,6 +153,8 @@ function addBuyedTable(){
       type="number"
       name="number"
       id="exampleNumber"
+      bind:value={cuatitiProduct[i]}
+
       placeholder="¿Cuantas Unidades Vendiste?" />
   </FormGroup>
 </Col>
@@ -111,6 +165,7 @@ function addBuyedTable(){
       type="number"
       name="number"
       id="exampleNumber"
+      bind:value={priceProduct[i]}
       placeholder="¿En Cuanto lo Vendiste?" />
   </FormGroup></Col>
   </Row>

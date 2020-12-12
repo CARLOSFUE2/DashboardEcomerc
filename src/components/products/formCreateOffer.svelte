@@ -18,7 +18,6 @@ import axios from 'axios';
   let products=[];
   let apoyo;
   let product={};
-  let idProduct;
 
 
 

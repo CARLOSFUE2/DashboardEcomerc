@@ -1,72 +1,77 @@
 <script >
-  import { Table, Button, Spinner, Modal, ModalFooter,
-    ModalHeader } from 'sveltestrap';
+  import { Modal, ModalHeader } from 'sveltestrap';
   import { onMount } from 'svelte';
-   import { create } from '../../store.js'
+  import { create } from '../../store.js';
+  import axios from 'axios';
 
 
+ $: $create.nameElement == 'buyed'? reloadProduct() : console.log('probando este beta') ; 
 
-$: if($create.element == 'buyed'){
-      console.log('roladfrombuyed')
+async function reloadProduct() {
+  const res =await fetch(`http://localhost:1337/ventas`);
+    orders = await res.json(); 
 }
  
- let clients =[];
   let orders;
   let order;
   let id;
   let products=[];
 
   onMount(async ()=>{
-    const res =await fetch(`https://api.wynwoodstore.net/users`)
-      clients= await res.json();
-      console.log(clients);
-      let clientOrders = [];
-      let clientName;
-      let clientId;
-      clients.forEach(client =>  {
-        if (client.buyedProducts) {
-          clientName= client.name;
-          clientId= client.id;
-          client.buyedProducts.forEach(order => {
-            clientOrders.push({...order,clientName,clientId});
-          })
-        }
-      })
-      orders = clientOrders;
-      return orders;
+    const res =await fetch(`http://localhost:1337/ventas`);
+    orders = await res.json();    
   });
+   async function borrar(id)  {
+    const res =await axios.delete(`http://localhost:1337/ventas/${id}`)
+    console.log(res);
+  }
 function mostrar(Id){
     id = Id;
     orders.forEach( cont => {if(cont.id == id){
       order = cont;
-      products= order.cart;
+      products= order.products;
     }})
     toggle()
   }
-  function ready(id){
-    alert(id);
-  }
+ 
  let isOpen =false;
 function toggle(){isOpen = !isOpen;}
   </script>
 <style type="text/css">
   
 </style>
- <Modal {isOpen} >
-    <ModalHeader {toggle}>¿Entregaste este pedido? </ModalHeader>
-    <div class="card" >
-  <div class="card-body">
-    <h5 class="card-title">factura numero:{order.orderId} de {order.clientName}</h5>
-    <p class="card-text">fecha:{order.date}</p>
-    <!--p class="card-text">con los siguientes productos:</p>
-    <{#each products as product }
-     <p class="card-text">{product.title}</p>
-    {/each} -->
-    <p class="card-text">Total:{order.totalPrice}</p>
-   <div class=" d-flex justify-content-center">
-  <button class="btn btn-success btn-lg" on:click={ready(order.id)} style="margin:auto">Entregado</button>
-  <button class="btn btn-danger btn-lg" style="margin:auto">Cancelar</button>
- </div>
+<Modal {isOpen} >
+  <ModalHeader {toggle}>Detalles de la venta</ModalHeader>
+  <div class="card" >
+<div class="card-body">
+  <h5 class="card-title">Factura numero: {order.numberFacture}</h5>
+  <h6 class="card-subtitle mb-2 text-muted">cliente: {order.clientName}</h6>
+  <h6 class="card-subtitle mb-2 text-muted">fecha: {order.date}</h6>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm table-hover">  <thead>
+      <tr>
+        <th>Nombre de producto</th>
+        <th>Cantidad</th>
+        <th>precio</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each products as item}
+       <tr>
+        <td>{item.name}</td>
+        <td>{item.cuantiti}</td>
+        <td>{item.price}</td>           
+      </tr>
+      {/each}      
+    </tbody>
+  </table>
+  </div>
+  <p class="card-title">Total de la venta: {order.total}$</p>
+</div>
+<hr>
+<div class="d-flex justify-content-center " style="margin-bottom:30px;">
+<!--button class="btn btn-warning btn-lg" style="margin:auto;">Modificar</button-->
+<button class="btn btn-danger btn-lg" on:click={borrar(order.id)} style="margin:auto;">Borrar</button>
 </div>
 </div>
 </Modal>
@@ -74,11 +79,10 @@ function toggle(){isOpen = !isOpen;}
 <div class="table-responsive">
   <table class="table table-striped table-sm table-hover">  <thead>
     <tr>
-      <th>Numero de Orden</th>
+      <th>Numero de Factura</th>
       <th>Cliente</th>
       <th>Fecha</th>
       <th>Total</th>
-      <th>Estatus</th>
       <th>numero de Productos </th>
     </tr>
   </thead>
@@ -86,24 +90,13 @@ function toggle(){isOpen = !isOpen;}
     {#if orders}
     {#each orders as item}
      <tr>
-      <td><a href="#/orders/{item.clientId}/{item.orderId}">{item.orderId}</a></td>
-      <td><a href="#/customers/{item.clientId}">{item.clientName}</a></td>
-      <td>{item.date}</td>
-      <td>{item.totalPrice}</td>
-      {#if item.status == "Pendiente"}
-      <td style="color:red"><a on:click={mostrar(item.id)}>{item.status}</a></td>
-      {:else}
-      <td style="color:green">{item.status}</td>
-      {/if}
-      
-      <td>{item.cart.length}</td>
-            
+      <td><a on:click={mostrar(item.id)}>{item.numberFacture}</a></td>
+      <td><a on:click={mostrar(item.id)}>{item.clientName}</a></td>
+      <td><a on:click={mostrar(item.id)}>{item.date}</a></td>
+      <td><a on:click={mostrar(item.id)}>{item.total}</a></td>
+     <td><a on:click={mostrar(item.id)}>{item.products.length}</a></td>            
     </tr>
     {/each} 
-    {:else}
-    <div class=" container-fluid d-flex justify-content-center">
-    <Spinner light />
-    </div>
     {/if}
    
     
