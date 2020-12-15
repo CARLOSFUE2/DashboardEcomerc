@@ -48,7 +48,7 @@
         <NavLink href="#/contacts">Contactos</NavLink>
       </NavItem>
       <NavItem>
-        <NavLink href="#/ml/qlq">Mercado Libre</NavLink>
+        <NavLink href="#/ml">Mercado Libre</NavLink>
       </NavItem>
       <UncontrolledDropdown nav inNavbar>
         <DropdownToggle nav caret>{$authUser.user.name}</DropdownToggle>

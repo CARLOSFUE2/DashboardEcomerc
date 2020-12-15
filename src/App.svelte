@@ -14,9 +14,9 @@
      import Toast from './components/Toast.svelte';
      import Home from './routes/Home.svelte';
      import MercadoLibre from './routes/MercadoLibre.svelte';
+     import Integration from './routes/Integration.svelte';
      import { authUser } from './store.js';
-
-
+     import Message from './components/IntegrationMessage.svelte';
 
   let isOpen = false;
 
@@ -165,9 +165,24 @@
                 }
             }
         ]
-    }),'/ml/:code?':wrap({
+    }),'/ml':wrap({
         // Use a dynamically-loaded component for this
         component: MercadoLibre,
+        // Adding one pre-condition that's an async function
+        conditions: [
+            async (detail) => {
+                // Make a network request, which are async operations
+                if ($authUser) {
+                  return true;
+                } else {
+                  push('/login');
+                  return false;
+                }
+            }
+        ]
+    }),'/integration/:code?':wrap({
+        // Use a dynamically-loaded component for this
+        component: Integration,
         // Adding one pre-condition that's an async function
         conditions: [
             async (detail) => {
@@ -194,6 +209,7 @@
 
 
 <Router {routes} />
+<Message {routes}/>
 
 </div>
 </div>
