@@ -7,7 +7,7 @@
  // $: $create.nameElement == 'category'? reloadProduct() : console.log('probando este beta') ; 
   
  /* async function reloadProduct() {
-    const res =await fetch(`http://localhost:1337/categories`)
+    const res =await fetch(`https://api.wynwoodstore.net/categories`)
         categories= await res.json();
         console.log(categories);
         return categories;
@@ -18,13 +18,13 @@
     toggle();
   }
     async function submit (){
-        const res = await axios.put(`http://localhost:1337/questionsmercadolibres/${iD}`, {response})
+        const res = await axios.put(`https://api.wynwoodstore.net/questionsmercadolibres/${iD}`, {response})
         console.log(res);
 
     }
   
     onMount(async ()=>{
-      const res =await fetch(`http://localhost:1337/questionsmercadolibres`)
+      const res =await fetch(`https://api.wynwoodstore.net/questionsmercadolibres`)
         questions= await res.json();
         console.log(questions);
         return questions;

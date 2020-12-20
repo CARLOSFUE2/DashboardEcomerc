@@ -8,7 +8,7 @@
  $: $create.nameElement == 'buyed'? reloadProduct() : console.log('probando este beta') ; 
 
 async function reloadProduct() {
-  const res =await fetch(`http://localhost:1337/ventas`);
+  const res =await fetch(`https://api.wynwoodstore.net/ventas`);
     orders = await res.json(); 
 }
  
@@ -18,11 +18,11 @@ async function reloadProduct() {
   let products=[];
 
   onMount(async ()=>{
-    const res =await fetch(`http://localhost:1337/ventas`);
+    const res =await fetch(`https://api.wynwoodstore.net/ventas`);
     orders = await res.json();    
   });
    async function borrar(id)  {
-    const res =await axios.delete(`http://localhost:1337/ventas/${id}`)
+    const res =await axios.delete(`https://api.wynwoodstore.net/ventas/${id}`)
     console.log(res);
   }
 function mostrar(Id){

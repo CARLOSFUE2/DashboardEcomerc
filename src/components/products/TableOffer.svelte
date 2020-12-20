@@ -8,7 +8,7 @@
  $: $create.nameElement == 'offert'? reloadProduct() : console.log('probando este beta') ; 
 
 async function reloadProduct() {
-  const res =await fetch(`http://localhost:1337/offers`)
+  const res =await fetch(`https://api.wynwoodstore.net/offers`)
       offers= await res.json();
       offers.forEach(offer =>{
       offer.created_at = offer.created_at.substr(0,10); 
@@ -17,7 +17,7 @@ async function reloadProduct() {
 
       
   onMount(async ()=>{
-    const res =await fetch(`http://localhost:1337/offers`)
+    const res =await fetch(`https://api.wynwoodstore.net/offers`)
       offers= await res.json();
       offers.forEach(offer =>{
       offer.created_at = offer.created_at.substr(0,10); 

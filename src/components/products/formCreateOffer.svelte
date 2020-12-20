@@ -5,9 +5,9 @@ import { onMount } from 'svelte';
 import axios from 'axios';
 
   onMount(async ()=>{
-    const res =await fetch(`http://localhost:1337/offers`)
+    const res =await fetch(`https://api.wynwoodstore.net/offers`)
       offers= await res.json();
-      const response =await fetch(`http://localhost:1337/products`)
+      const response =await fetch(`https://api.wynwoodstore.net/products`)
       products= await response.json();
       products =products.filter( product => product.offer == null);
       console.log(products);
@@ -33,7 +33,7 @@ export let isOpenOffer;
       product = product.id;
      form= {...form , product};
      console.log(form); 
-    	 const resp = await axios.post("http://localhost:1337/offers", form);
+    	 const resp = await axios.post("https://api.wynwoodstore.net/offers", form);
          toggle();
         handleToast({
         title:"Oferta creada",

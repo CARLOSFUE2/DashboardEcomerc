@@ -63,7 +63,7 @@ function hidden(){
 
     	formData.append("files.images", files[0]);
         }
-    	const resp = await fetch("http://localhost:1337/products", {
+    	const resp = await fetch("https://api.wynwoodstore.net/products", {
     		method: "POST",
     		body:formData
     	});

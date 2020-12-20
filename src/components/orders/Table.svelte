@@ -15,7 +15,7 @@
   let products=[];
 
   onMount(async ()=>{
-    const res =await fetch('http://localhost:1337/users')
+    const res =await fetch('https://api.wynwoodstore.net/users')
       clients= await res.json();
       let clientOrders = [];
       let clientName;
@@ -40,7 +40,7 @@ function mostrar(Id){
     toggle()
   }
   async function modifiOrder(){
-    const res =await fetch('http://localhost:1337/users')
+    const res =await fetch('https://api.wynwoodstore.net/users')
       clients= await res.json();
       let clientOrders = [];
       let clientName;
@@ -70,7 +70,7 @@ function mostrar(Id){
     idClient=idclient;
     status=change;
     let body = {idFacture, status}
-    const res = await axios.put(`http://localhost:1337/users/${idClient}`,
+    const res = await axios.put(`https://api.wynwoodstore.net/users/${idClient}`,
    {... body });
    toggle();
    handleToast({

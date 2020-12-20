@@ -5,7 +5,7 @@
 
 
   onMount(async ()=>{
-    const res =await fetch(`http://localhost:1337/contacts`)
+    const res =await fetch(`https://api.wynwoodstore.net/contacts`)
       contacts= await res.json();
       contacts = contacts.filter( contact => contact.response == null);
       contacts.forEach(contact =>{
@@ -26,7 +26,7 @@
     console.log(form);
     let data = form;
     try{
-    const resp = await axios.put(`http://localhost:1337/contacts/${id}`, 
+    const resp = await axios.put(`https://api.wynwoodstore.net/contacts/${id}`, 
        data
       );
     console.log(resp);

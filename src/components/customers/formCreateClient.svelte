@@ -10,7 +10,7 @@ async function submit (e){
   form.name = `${form.firstName} ${form.lastName}`;
   form.username = form.email;
   form.confirmed = true;
-  const resp = await axios.post("http://localhost:1337/auth/local/register", 
+  const resp = await axios.post("https://api.wynwoodstore.net/auth/local/register", 
         {...form
       });
 

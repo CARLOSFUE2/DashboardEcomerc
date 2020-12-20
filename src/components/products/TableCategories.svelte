@@ -6,7 +6,7 @@
 $: $create.nameElement == 'category'? reloadProduct() : console.log('probando este beta') ; 
 
 async function reloadProduct() {
-  const res =await fetch(`http://localhost:1337/categories`)
+  const res =await fetch(`https://api.wynwoodstore.net/categories`)
       categories= await res.json();
       console.log(categories);
       return categories;
@@ -14,7 +14,7 @@ async function reloadProduct() {
 
 
   onMount(async ()=>{
-    const res =await fetch(`http://localhost:1337/categories`)
+    const res =await fetch(`https://api.wynwoodstore.net/categories`)
       categories= await res.json();
       console.log(categories);
       return categories;

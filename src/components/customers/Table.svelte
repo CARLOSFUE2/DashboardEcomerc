@@ -7,7 +7,7 @@
  $: $create.nameElement == 'client'? reloadProduct() : console.log('probando este beta') ; 
 
  async function reloadProduct() {
-  const res =await fetch(`http://localhost:1337/users`)
+  const res =await fetch(`https://api.wynwoodstore.net/users`)
       clients= await res.json(); 
       return clients;
 }
@@ -15,7 +15,7 @@
   let clients;
 
   onMount(async ()=>{
-    const res =await fetch(`http://localhost:1337/users`)
+    const res =await fetch(`https://api.wynwoodstore.net/users`)
       clients= await res.json(); 
   });
 

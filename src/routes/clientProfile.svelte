@@ -17,7 +17,7 @@
   let form = {};
   let id = params.id;
   onMount(async ()=>{
-  const res =await fetch(`http://localhost:1337/users/${params.id}`)
+  const res =await fetch(`https://api.wynwoodstore.net/users/${params.id}`)
       client= await res.json();
       form =client; 
       return client , form;
@@ -36,7 +36,7 @@
 }
   async function deleteClient(id){
     try{
-      const resp = await axios.delete(`http://localhost:1337/users/${id}`);
+      const resp = await axios.delete(`https://api.wynwoodstore.net/users/${id}`);
         handleToast({
         title:"Cliente fue eliminado",
         message: "El cliente fue eliminado satisfactoriamente",

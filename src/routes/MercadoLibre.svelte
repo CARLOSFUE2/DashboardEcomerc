@@ -8,7 +8,7 @@ import { onMount } from 'svelte';
 let client ='';
 
  onMount(async ()=>{
-	const res =await fetch(`http://localhost:1337/integration`)
+	const res =await fetch(`https://api.wynwoodstore.net/integration`)
       client= await res.json();
         } );
   

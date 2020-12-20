@@ -5,7 +5,7 @@ import { onMount } from 'svelte';
 import axios from 'axios';
 
 onMount(async ()=>{
-  const res  =await axios.get('http://localhost:1337/categories');
+  const res  =await axios.get('https://api.wynwoodstore.net/categories');
   categories = res.data;
 });
 export let product;
@@ -24,7 +24,7 @@ let statusCode = "";
 
     	formData.append("files.images", files[0]);
       	}
-      	const resp = await fetch(`http://localhost:1337/products/${product.id}`, {
+      	const resp = await fetch(`https://api.wynwoodstore.net/products/${product.id}`, {
     		method: "PUT",
     		body:formData
       }); 

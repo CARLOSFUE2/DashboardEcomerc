@@ -8,7 +8,7 @@
 $: $create.nameElement == 'product'? reloadProduct() : console.log('probando este beta') ; 
 
 async function reloadProduct() {
-  const res =await fetch(`http://localhost:1337/products`)
+  const res =await fetch(`https://api.wynwoodstore.net/products`)
       products= await res.json(); 
         if(category !== undefined) {
         let res = products.filter(product => product.categories[0].name === category.name);
@@ -21,7 +21,7 @@ async function reloadProduct() {
   console.log(data.outstanding) 
   const item=!data.outstanding;
   console.log(item);
-  const res = await axios.put(`http://localhost:1337/products/${id}`,{outstanding:item});
+  const res = await axios.put(`https://api.wynwoodstore.net/products/${id}`,{outstanding:item});
   console.log(res);
   reloadProduct()
 }
@@ -36,7 +36,7 @@ async function reloadProduct() {
   export let category;
 
   onMount(async ()=>{
-    const res =await fetch(`http://localhost:1337/products`)
+    const res =await fetch(`https://api.wynwoodstore.net/products`)
       products= await res.json(); 
         if(category !== undefined) {
         let res = products.filter(product => product.categories[0].name === category.name);

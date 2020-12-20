@@ -15,7 +15,7 @@ export let isOpenCategory;
     console.log(form);
     let data = form;
     try{
-    const resp = await axios.put(`http://localhost:1337/contacts/${id}`, 
+    const resp = await axios.put(`https://api.wynwoodstore.net/contacts/${id}`, 
        data
       );
     console.log(resp);
@@ -31,7 +31,7 @@ export let isOpenCategory;
       	const formData = new FormData();
       	formData.append('data', JSON.stringify(form));
     	console.log(form, formData.values());
-    	const resp = await fetch("http://localhost:1337/categories", {
+    	const resp = await fetch("https://api.wynwoodstore.net/categories", {
     		method: "POST",
     		body:formData
     	});

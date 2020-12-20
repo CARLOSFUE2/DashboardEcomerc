@@ -8,7 +8,7 @@ async function submit (e){
  if(form){
   form.username = form.email;
   form.confirmed = true;
-  const resp = await axios.put(`http://localhost:1337/users/${id}`, 
+  const resp = await axios.put(`https://api.wynwoodstore.net/users/${id}`, 
         {...form
       });
 

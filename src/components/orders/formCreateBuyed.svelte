@@ -16,7 +16,7 @@ async function submit(e){
     total = total + (cuatitiProduct[a]*priceProduct[a]);
     }
   body = {... form, products, total}
-  const res = await axios.post('http://localhost:1337/ventas', body);
+  const res = await axios.post('https://api.wynwoodstore.net/ventas', body);
   toggle();
   handleToast({
         title:"Venta Personal Registrada",

@@ -27,7 +27,7 @@ export let isOpenOfferPublic;
       const formData = new FormData();
       formData.append('data', JSON.stringify(form));
       console.log(form, formData.values());
-      const resp = await fetch("http://localhost:1337/offers", {
+      const resp = await fetch("https://api.wynwoodstore.net/offers", {
         method: "POST",
         body:formData
       });

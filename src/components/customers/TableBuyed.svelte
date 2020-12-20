@@ -9,7 +9,7 @@ export let params;
   	let clientId;
   	let apoyo=[];
   	let arreglo=[];
-    const res =await fetch(`http://localhost:1337/users/${params.id}`)
+    const res =await fetch(`https://api.wynwoodstore.net/users/${params.id}`)
       client= await res.json();
       clientId =client.id;
       apoyo= client.buyedProducts;

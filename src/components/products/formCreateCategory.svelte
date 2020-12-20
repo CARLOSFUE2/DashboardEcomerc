@@ -10,7 +10,7 @@ export let isOpenCategory;
       	const formData = new FormData();
       	formData.append('data', JSON.stringify(form));
     	console.log(form, formData.values());
-    	const resp = await fetch("http://localhost:1337/categories", {
+    	const resp = await fetch("https://api.wynwoodstore.net/categories", {
     		method: "POST",
     		body:formData
     	});
