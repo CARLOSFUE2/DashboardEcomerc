@@ -26,7 +26,11 @@ $: $elementEdit.nameElement == 'product'? product = $elementEdit.elementEdit : c
 	onMount(async ()=>{
     const res =await fetch(`http://localhost:1337/products/${params.slug}`)
       product= await res.json(); 
-      src =`http://localhost:1337${product.images[0].url}`;
+      if(product.createrforMercadoLibre){
+        src = `${product.urlExterna.pictures[0].secure_url}`;
+      }else{
+        src =`http://localhost:1337${product.images[0].url}`;
+      } 
       categories=product.categories;
   });
   function editProduct(){

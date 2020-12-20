@@ -1,7 +1,8 @@
 <script >
   import { onMount } from 'svelte';
   import { createEventDispatcher } from 'svelte';
-  import { create } from '../../store.js'
+  import { create } from '../../store.js';
+  import axios from 'axios'
 
 
 $: $create.nameElement == 'product'? reloadProduct() : console.log('probando este beta') ; 
@@ -14,6 +15,15 @@ async function reloadProduct() {
         products= res;
         return products;      
        }
+}
+ async function outstandingProduct(id){
+  const data = products.find( item => item.id= id);
+  console.log(data.outstanding) 
+  const item=!data.outstanding;
+  console.log(item);
+  const res = await axios.put(`http://localhost:1337/products/${id}`,{outstanding:item});
+  console.log(res);
+  reloadProduct()
 }
 
   const dispatch = createEventDispatcher();
@@ -56,6 +66,7 @@ async function reloadProduct() {
     </tr>
   </thead>
   <tbody>
+    <!-- svelte-ignore empty-block -->
     {#if products.length == 0}
     
     {:else}
@@ -66,16 +77,16 @@ async function reloadProduct() {
       <td>{product.price}</td>
       <td><a href="#/products/category/{product.categories[0].slug}">{product.categories[0].name}</a></td>
       {#if product.outstanding == true} 
-      <td class="text-primary">Si</td>
+      <td > <button class="btn btn-warning" on:click={outstandingProduct(product.id)}>remover</button></td>
       {:else}
-      <td class="text-danger">No</td>
+      <td> <button class="btn btn-primary" on:click={outstandingProduct(product.id)}>destacar</button></td>
       {/if}
       {#if product.offer}
-      <td >Si</td>
+      <td  class="text-success" style="margin:auto">Si</td>
       <td >{product.offer.newPrice}</td>
 
       {:else}
-      <td >No</td>
+      <td class="text-danger" style="margin:auto">No</td>
       <td>Nulo</td>
       {/if}
     </tr>

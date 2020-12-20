@@ -1,10 +1,8 @@
 <script >
 import { Col, Container, Row } from 'sveltestrap';
-import TableProducts from '../components/products/Table.svelte';
-import TableCustomers from '../components/customers/Table.svelte';
-import ChartClients from '../components/charts/chartClients.svelte';
-import ChartPRoducts from '../components/charts/chartBuyed.svelte';
 import Sidebard from '../components/MercadoLibre/Sidebard.svelte';
+import TableNotifications from '../components/MercadoLibre/TableNotifications.svelte';
+import TableQuestions from '../components/MercadoLibre/TableQuestions.svelte';
 import { onMount } from 'svelte';
 
 let client ='';
@@ -31,9 +29,13 @@ let client ='';
 	  <p> correo de mercado libre: {client.email}</p>
 	  <!--p>{client.seller_reputation.level_id}</p-->
 	 
-	  </div> 
+	</div>
+
 </div>
 
+<TableNotifications/>
+
+<TableQuestions/>
 
 
 

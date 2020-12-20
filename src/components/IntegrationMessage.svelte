@@ -34,7 +34,7 @@ onMount(async ()=>{
 			<h5 class="card-title text-danger row">Vencio su authorizacion de ML.</h5>
 		</div>
 		<div class="d-flex justify-content-center">		
-			<a class="btn btn-warning row" href="#/integration/?code=prueba" target="_blank" >Renovar</a> 
+			<a class="btn btn-warning row" href="#/integration/?code=TG-5fdf4ec3de7dd4000687c2cf-684358396" target="_blank" >Renovar</a> 
 		</div>
 	  </div>
   </div>
